@@ -40,11 +40,26 @@ var uploadFormFmt = `
 </html>
 `
 
+var uploadWithKeyFormFmt = `
+<html>
+ <body>
+  <form method="post" action="http://up.qiniu.com/" enctype="multipart/form-data">
+   <input name="token" type="hidden" value="%s">
+   Image key in qiniu cloud storage: <input name="key" value="foo bar.jpg"><br>
+   Image to upload: <input name="file" type="file"/>
+   <input type="submit" value="Upload">
+  </form>
+ </body>
+</html>
+`
+
 var returnPageFmt = `
 <html>
  <body>
   <p>%s
+  <p>ImageDownloadUrl: %s
   <p><a href="/upload">Back to upload</a>
+  <p><a href="/upload2">Back to uploadWithKey</a>
   <p><img src="%s">
  </body>
 </html>
@@ -71,8 +86,8 @@ func handleReturn(w http.ResponseWriter, req *http.Request) {
 	}
 
 	policy := rs.GetPolicy{Scope: "*/" + uploadRet.Key}
-	img := policy.MakeRequest("http://" + DOMAIN + "/" + uploadRet.Key)
-	returnPage := fmt.Sprintf(returnPageFmt, string(b), img)
+	img := policy.MakeRequest(rs.MakeBaseUrl(DOMAIN, uploadRet.Key))
+	returnPage := fmt.Sprintf(returnPageFmt, string(b), img, img)
 	w.Write([]byte(returnPage))
 }
 
@@ -82,7 +97,16 @@ func handleUpload(w http.ResponseWriter, req *http.Request) {
 	token := policy.Token()
 	log.Println("token:", token)
 	uploadForm := fmt.Sprintf(uploadFormFmt, token)
-	w.Write([]byte(uploadForm))	
+	w.Write([]byte(uploadForm))
+}
+
+func handleUploadWithKey(w http.ResponseWriter, req *http.Request) {
+
+	policy := rs.PutPolicy{Scope: BUCKET, ReturnUrl: "http://localhost:8765/uploaded"}
+	token := policy.Token()
+	log.Println("token:", token)
+	uploadForm := fmt.Sprintf(uploadWithKeyFormFmt, token)
+	w.Write([]byte(uploadForm))
 }
 
 func handleDefault(w http.ResponseWriter, req *http.Request) {
@@ -94,6 +118,7 @@ func main() {
 
 	http.HandleFunc("/", handleDefault)
 	http.HandleFunc("/upload", handleUpload)
+	http.HandleFunc("/upload2", handleUploadWithKey)
 	http.HandleFunc("/uploaded", handleReturn)
 	log.Fatal(http.ListenAndServe(":8765", nil))
 }
