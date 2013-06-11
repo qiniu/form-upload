@@ -31,7 +31,8 @@ var uploadFormFmt = `
  <body>
   <form method="post" action="http://up.qiniu.com/" enctype="multipart/form-data">
    <input name="token" type="hidden" value="%s">
-   Image to upload: <input name="file" type="file"/>
+   Album belonged to: <input name="x:album" value="albumId"><br>
+   Image to upload: <input name="file" type="file"/><br>
    <input type="submit" value="Upload">
   </form>
  </body>
@@ -43,8 +44,9 @@ var uploadWithKeyFormFmt = `
  <body>
   <form method="post" action="http://up.qiniu.com/" enctype="multipart/form-data">
    <input name="token" type="hidden" value="%s">
+   Album belonged to: <input name="x:album" value="albumId"><br>
    Image key in qiniu cloud storage: <input name="key" value="foo bar.jpg"><br>
-   Image to upload: <input name="file" type="file"/>
+   Image to upload: <input name="file" type="file"/><br>
    <input type="submit" value="Upload">
   </form>
  </body>
@@ -91,7 +93,7 @@ func handleReturn(w http.ResponseWriter, req *http.Request) {
 
 func handleUpload(w http.ResponseWriter, req *http.Request) {
 
-	policy := rs.PutPolicy{Scope: BUCKET, ReturnUrl: "http://localhost:8765/uploaded"}
+	policy := rs.PutPolicy{Scope: BUCKET, ReturnUrl: "http://localhost:8765/uploaded", EndUser: "userId"}
 	token := policy.Token(nil)
 	log.Println("token:", token)
 	uploadForm := fmt.Sprintf(uploadFormFmt, token)
@@ -100,7 +102,7 @@ func handleUpload(w http.ResponseWriter, req *http.Request) {
 
 func handleUploadWithKey(w http.ResponseWriter, req *http.Request) {
 
-	policy := rs.PutPolicy{Scope: BUCKET, ReturnUrl: "http://localhost:8765/uploaded"}
+	policy := rs.PutPolicy{Scope: BUCKET, ReturnUrl: "http://localhost:8765/uploaded", EndUser: "userId"}
 	token := policy.Token(nil)
 	log.Println("token:", token)
 	uploadForm := fmt.Sprintf(uploadWithKeyFormFmt, token)
