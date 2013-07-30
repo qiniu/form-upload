@@ -14,9 +14,9 @@
 <html>
     <body>
         <form method="post" action="http://up.qiniu.com/" enctype="multipart/form-data">
-            <input name="token" type="hidden" value="<?php 
-                print $upToken
-            ?>">
+            <?php 
+                echo "<input name=\"token\" type=\"hidden\" value=\"$upToken\">"
+            ?>
             Album belonged to:
             <input type="text" name="x:album" value="albumId"><br>
             Image to upload:
