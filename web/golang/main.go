@@ -93,7 +93,13 @@ func handleReturn(w http.ResponseWriter, req *http.Request) {
 
 func handleUpload(w http.ResponseWriter, req *http.Request) {
 
-	policy := rs.PutPolicy{Scope: BUCKET, ReturnUrl: "http://localhost:8765/uploaded", EndUser: "userId"}
+	policy := rs.PutPolicy{
+		Scope: BUCKET,
+		ReturnUrl: "http://localhost:8765/uploaded",
+		EndUser: "userId",
+		SaveKey: "$(sha1)",
+		ReturnBody: `{"hash": $(etag), "key": $(key)}`,
+	}
 	token := policy.Token(nil)
 	log.Println("token:", token)
 	uploadForm := fmt.Sprintf(uploadFormFmt, token)
