@@ -1,7 +1,9 @@
-Qiniu Form Upload DEMO
+Qiniu Form Upload Demo
 ==========
 
-这里整理了上传文件到 qiniu 的样例整理。这些样例并不需要你基于七牛SDK来完成，方便你移植到任何框架体系中。
+[![Qiniu Logo](http://qiniutek.com/images/logo-2.png)](http://qiniu.com/)
+
+这里整理了上传文件到七牛云存储的样例集。这些样例并不需要你基于任何七牛SDK来完成，方便你移植到各种技术框架体系中。
 
 
 ## Web (html)
