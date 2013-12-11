@@ -1,7 +1,7 @@
-Qiniu Form Upload Demo
+Qiniu Form Upload DEMO
 ==========
 
-这是上传文件到 qiniu 的样例集合。
+这里整理了上传文件到 qiniu 的样例整理。这些样例并不需要你基于七牛SDK来完成，方便你移植到任何框架体系中。
 
 
 ## Web (html)
@@ -10,11 +10,10 @@ Qiniu Form Upload Demo
 
 ```
 <form method="post" action="http://up.qiniu.com/" enctype="multipart/form-data">
-  <input name="key" type="hidden" value="<resource key>">
-  <input name="x:<custom_field_name>" type="hidden" value="<custom value>">
-  <input name="token" type="hidden" value="<token>">
-  <input name="file" type="file" />
-  ...
+  <input name="key" type="hidden" value="<Your file name in qiniu>">
+  <input name="x:<custom_field_name>" type="hidden" value="<Value of your custom param>">
+  <input name="token" type="hidden" value="<Your uptoken from server>">
+  <input name="file" type="file"/>
 </form>
 ```
 
@@ -37,9 +36,9 @@ u.method = URLRequestMethod.POST;
 u.requestHeaders = [new URLRequestHeader('enctype', 'multipart/form-data')];
 
 var ur :URLVariables = new URLVariables();
-ur.key = 'Your file name in qiniu.com';
-ur.token = 'Your uptoken from server'; //Only this is required
-ur['x:param'] = 'Your custom param and value';
+ur.key = '<Your file name in qiniu>';
+ur.token = '<Your uptoken from server>';
+ur['x:<custom_field_name>'] = '<Value of your custom param>';
 
 u.data = ur;
  
