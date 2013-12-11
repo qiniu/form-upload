@@ -8,7 +8,7 @@ Qiniu Form Upload DEMO
 
 这个其实是最简单的。因为七牛的上传API就是一个multipart form形式的表单。你只需要提交如下这个表单：
 
-```
+```html
 <form method="post" action="http://up.qiniu.com/" enctype="multipart/form-data">
   <input name="key" type="hidden" value="<Your file name in qiniu>">
   <input name="x:<custom_field_name>" type="hidden" value="<Value of your custom param>">
@@ -30,7 +30,7 @@ Qiniu Form Upload DEMO
 
 能够理解上面 Web 方式的上传过程，用 Flash 只是通过 http 协议把表单发送出去而已。直接贴代码：
 
-```
+```ActionScript
 var u :URLRequest = new URLRequest('http://up.qiniu.com');
 u.method = URLRequestMethod.POST;
 u.requestHeaders = [new URLRequestHeader('enctype', 'multipart/form-data')];
