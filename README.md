@@ -48,7 +48,11 @@ f.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, uploadedHandler);
 protected function uploadedHandler(event:DataEvent):void
 {
   trace(event.data);
-  //{"hash":"<File etag>", "key":"<Your file name in qiniu>", "x:<custom_field_name>":"<Value of your custom param>"}
+  //{
+  //  "hash":"<File etag>",
+  //  "key":"<Your file name in qiniu>",
+  //  "x:<custom_field_name>":"<Value of your custom param>"
+  //}
 }
 ```
 
