@@ -44,7 +44,9 @@ ur['x:<custom_field_name>'] = '<Value of your custom param>';
 
 u.data = ur;
  
-f.upload(u, 'file'); // f is File or FileReference is both OK, but UploadDataFieldName must be 'file'
+f.upload(u, 'file');
+// f is File or FileReference is both OK, but UploadDataFieldName must be 'file'
+
 f.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, uploadedHandler);
  
 protected function uploadedHandler(event:DataEvent):void
