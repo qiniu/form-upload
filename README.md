@@ -21,7 +21,7 @@ Qiniu Form Upload Demo
 
 关键是 token 字段。这个通常是服务端生成的。比较正常点的做法是需要服务器端配合的，在客户端需要上传或修改文件的时候服务端生成token并提供给客户端。
 
-但如果你的需求非常简单，也可以有不需要服务端的做法：随便找一个语言的 sdk 生成一个 token（token的过期时间可以设置很长，比如100年，这样就得到了一个永不过期的token —— 除非你在 https://portal.qiniu.com/ 里面把生成这个token的accessKey/secretKey作废）。然后把这个 token 写死在以上的表单里就行。
+但如果你的需求非常简单，也可以有不需要服务端的做法：随便找一个语言的 sdk 生成一个 token（token的过期时间可以设置很长，比如50年，这样就得到了一个永不过期的token —— 除非你在 https://portal.qiniu.com/ 里面把生成这个token的accessKey/secretKey作废）。然后把这个 token 写死在以上的表单里就行。当然这样的方案仅仅适用于少数 Web 场景，对于移动端我们不推荐这么做，因为禁止accessKey/secretKey会影响所有客户。
 
 服务端配合的常见样例（会不断补充各种语言的DEMO）：
 
